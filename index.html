@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Summarizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>AI Text Summarizer</h1>
+                    <p>Sign in to your account</p>
+                </div>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <div id="loginError" class="error-message"></div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Sign In</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="#" id="goToSignup" class="link">Sign up</a></p>
+                </div>
+                <div class="demo-credentials">
+                    <p><strong>Demo Credentials:</strong></p>
+                    <p>Email: demo@example.com</p>
+                    <p>Password: demo123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div id="signupPage" class="page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Create Account</h1>
+                    <p>Sign up to get started</p>
+                </div>
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label" for="signupName">Full Name</label>
+                        <input type="text" id="signupName" class="form-control" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signupConfirmPassword">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                    </div>
+                    <div id="signupError" class="error-message"></div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Create Account</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" id="goToLogin" class="link">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Page -->
+    <div id="appPage" class="page">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="app-title">AI Text Summarizer</h1>
+                </div>
+                <div class="header-right">
+                    <span class="user-greeting">Welcome, <span id="userName">User</span>!</span>
+                    <button id="logoutBtn" class="btn btn--outline btn--sm">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="workspace">
+                <!-- Input Section -->
+                <div class="workspace-panel">
+                    <div class="panel-header">
+                        <h2>Input Text</h2>
+                        <div class="panel-stats">
+                            <span id="charCount" class="stat-badge">0 characters</span>
+                            <span id="wordCount" class="stat-badge">0 words</span>
+                        </div>
+                    </div>
+                    <textarea id="inputText" class="text-input" placeholder="Paste or type your text here... (minimum 50 characters)"></textarea>
+                    <div class="panel-actions">
+                        <button id="clearInputBtn" class="btn btn--secondary">Clear</button>
+                        <button id="summarizeBtn" class="btn btn--primary">Summarize Text</button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="workspace-panel">
+                    <div class="panel-header">
+                        <h2>Summary</h2>
+                        <div class="panel-stats">
+                            <span id="summaryWordCount" class="stat-badge">0 words</span>
+                        </div>
+                    </div>
+                    <div id="summaryOutput" class="text-output">
+                        <div class="placeholder-message">
+                            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                            </svg>
+                            <p>Your summary will appear here</p>
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button id="copySummaryBtn" class="btn btn--secondary" disabled>Copy Summary</button>
+                        <button id="clearOutputBtn" class="btn btn--outline" disabled>Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="history-section">
+                <div class="history-header">
+                    <h2>Summarization History</h2>
+                    <button id="toggleHistoryBtn" class="btn btn--outline btn--sm">Show History</button>
+                </div>
+                <div id="historyContainer" class="history-container hidden">
+                    <div id="historyList" class="history-list">
+                        <div class="empty-history">
+                            <p>No summarization history yet. Start by summarizing your first text!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Generating summary...</p>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <script src="summarizer.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
